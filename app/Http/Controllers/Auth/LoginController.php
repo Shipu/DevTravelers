@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Enums\VisibilityStatus;
 use App\Http\Controllers\Controller;
 use App\Models\BackpackUser;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
@@ -48,7 +49,7 @@ class LoginController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function redirectToProvider($service)
+    public function redirectToProvider( $service )
     {
         return Socialite::driver($service)->redirect();
     }
@@ -60,38 +61,47 @@ class LoginController extends Controller
      *
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function handleProviderCallback($service)
+    public function handleProviderCallback( $service )
     {
         $user = Socialite::driver($service)->user();
 
         return $this->saveUser($user);
     }
 
-    protected function saveUser($response)
+    protected function saveUser( $response )
     {
-        $email = $response->getEmail();
-        $name = $response->getName();
-        $password = Hash::make(snake_case($response->getName()).uniqid());
+        $email    = $response->getEmail();
+        $name     = $response->getName();
+        $password = Hash::make(snake_case($response->getName()) . uniqid());
 
-        if(!blank($email)) {
+        if ( !blank($email) ) {
             $user = BackpackUser::where('email', $email)->first();
         } else {
             \Alert::error("Please try another login method !!!")->flash();
+
             return redirect()->back();
         }
 
-        if(blank($user)) {
-            $user =  BackpackUser::create([
-                'name' => $name,
-                'email' => $email,
+        if ( blank($user) ) {
+            $user = BackpackUser::create([
+                'name'     => $name,
+                'email'    => $email,
                 'password' => $password,
-                'avatar' => $response->getAvatar()
+                'avatar'   => $response->getAvatar()
             ]);
-        }
+        } else if ( $user->status == VisibilityStatus::DEACTIVATE ) {
+            \Alert::error("You are not active user !!!")->flash();
 
-        if(backpack_auth()->login($user)) {
+            return redirect('/');
+        } else if($user->status == VisibilityStatus::BLOCKED ) {
+            \Alert::error("You are banned by admin !!!")->flash();
+
             return redirect('/');
         }
+
+        backpack_auth()->login($user);
+
+        \Alert::success("Successfully Login !!!")->flash();
 
         return redirect('/');
     }
