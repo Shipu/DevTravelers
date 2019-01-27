@@ -4,10 +4,14 @@ namespace App\Models;
 
 use Cviebrock\EloquentSluggable\Sluggable;
 use Shipu\Watchable\Traits\HasAuditColumn;
+use Spatie\MediaLibrary\HasMedia\HasMedia;
+use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
 
-class Event extends BaseModel
+class Event extends BaseModel implements HasMedia
 {
-    use Sluggable, HasAuditColumn;
+    use Sluggable, HasAuditColumn, HasMediaTrait;
+
+    const IMAGE_COLLECTION_NAME = 'image';
 
     protected $auditColumn = true;
 

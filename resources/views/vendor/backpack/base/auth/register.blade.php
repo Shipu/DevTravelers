@@ -75,6 +75,7 @@
                     </form>
                 </div>
             </div>
+            <a href="{{ route('social.redirect', 'github') }}">Github</a>
             @if (backpack_users_have_email())
                 <div class="text-center m-t-10"><a href="{{ route('backpack.auth.password.reset') }}">{{ trans('backpack::base.forgot_your_password') }}</a></div>
             @endif

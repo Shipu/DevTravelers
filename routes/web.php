@@ -14,3 +14,6 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('login/{service}', 'Auth\LoginController@redirectToProvider')->name('social.redirect');
+Route::get('login/{service}/callback', 'Auth\LoginController@handleProviderCallback')->name('social.callback');

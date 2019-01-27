@@ -20,6 +20,10 @@
         "mpdf/mpdf": "^7.1",
         "shipu/settings": "dev-master",
         "shipu/watchable": "dev-master",
+        "socialiteproviders/facebook": "dev-master",
+        "socialiteproviders/github": "dev-master",
+        "socialiteproviders/google": "^3.0",
+        "socialiteproviders/twitter": "^3.0",
         "spatie/laravel-medialibrary": "^7.5"
     },
     "require-dev": {

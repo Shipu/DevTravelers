@@ -81,7 +81,11 @@
 
             <div class="content">
                 <div class="title m-b-md">
-                    Laravel
+                    @if(backpack_auth()->check())
+                        Welcome {{ backpack_auth()->user()->name }}
+                    @else
+                        Laravel
+                    @endif
                 </div>
 
                 <div class="links">

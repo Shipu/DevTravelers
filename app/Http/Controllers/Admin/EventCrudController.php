@@ -6,6 +6,8 @@ use App\Http\Requests\ClassRequest as StoreRequest;
 use App\Http\Requests\ClassRequest as UpdateRequest;
 use App\Models\AcademicClass;
 use App\Models\BackpackUser;
+use App\Models\Event;
+use Spatie\MediaLibrary\Models\Media;
 
 class EventCrudController extends CrudController
 {
@@ -82,7 +84,9 @@ class EventCrudController extends CrudController
                 'type'  => 'datetime_picker',
                 'datetime_picker_options' => [
                     'format' => 'DD/MM/YYYY HH:mm',
-                    'language' => 'en'
+                    'language' => 'en',
+                    'showTodayButton' => true,
+                    'showClear' => true
                 ],
                 'allows_null' => false,
                 'wrapperAttributes' => [
@@ -98,7 +102,9 @@ class EventCrudController extends CrudController
                 'type'  => 'datetime_picker',
                 'datetime_picker_options' => [
                     'format' => 'DD/MM/YYYY HH:mm',
-                    'language' => 'en'
+                    'language' => 'en',
+                    'showTodayButton' => true,
+                    'showClear' => true
                 ],
                 'allows_null' => false,
                 'wrapperAttributes' => [
@@ -114,7 +120,9 @@ class EventCrudController extends CrudController
                 'type'  => 'datetime_picker',
                 'datetime_picker_options' => [
                     'format' => 'DD/MM/YYYY HH:mm',
-                    'language' => 'en'
+                    'language' => 'en',
+                    'showTodayButton' => true,
+                    'showClear' => true
                 ],
                 'allows_null' => false,
                 'wrapperAttributes' => [
@@ -130,7 +138,9 @@ class EventCrudController extends CrudController
                 'type'  => 'datetime_picker',
                 'datetime_picker_options' => [
                     'format' => 'DD/MM/YYYY HH:mm',
-                    'language' => 'en'
+                    'language' => 'en',
+                    'showTodayButton' => true,
+                    'showClear' => true
                 ],
                 'allows_null' => false,
                 'wrapperAttributes' => [
@@ -207,19 +217,64 @@ class EventCrudController extends CrudController
                 'label' => trans('validation.attributes.remarks'),
                 'type' => 'textarea',
             ],
+            [
+                'name'  => 'banner',
+                'label' => trans('validation.attributes.banner'),
+                'type' => 'upload_media',
+                'multiple' => false,
+                'upload' => true,
+                'is_image' => true,
+                'value' => null,
+                'relation' => 'media',
+                'wrapperAttributes' => [
+                    'class' => 'form-group col-md-12',
+                ]
+            ],
 
         ]);
-    }
-
-    public function beforeEdit($entry)
-    {
-
     }
 
     protected function setupDataTable()
     {
         $this->crud->setColumns([
             'name',
+            'amount',
+            [
+                'name' => "event_type", // The db column name
+                'label' => trans("validation.attributes.type"), // Table column heading
+                'type' => "radio",
+                'options' => trans('event_types'),
+            ],
+            [
+                'name' => "paid_event", // The db column name
+                'label' => trans("validation.attributes.paid_event"), // Table column heading
+                'type' => "radio",
+                'options' => trans('paid_types'),
+            ],
+            [
+                'name' => "start", // The db column name
+                'label' => trans("validation.attributes.start_date"), // Table column heading
+                'type' => "datetime",
+                'format' => 'l j F Y H:i:s'
+            ],
+            [
+                'name' => "end", // The db column name
+                'label' => trans("validation.attributes.end_date"), // Table column heading
+                'type' => "datetime",
+                'format' => 'l j F Y H:i:s'
+            ],
+            [
+                'name' => "registration_start", // The db column name
+                'label' => trans("validation.attributes.registration_start"), // Table column heading
+                'type' => "datetime",
+                'format' => 'l j F Y H:i:s'
+            ],
+            [
+                'name' => "registration_end", // The db column name
+                'label' => trans("validation.attributes.registration_end"), // Table column heading
+                'type' => "datetime",
+                'format' => 'l j F Y H:i:s'
+            ],
             [
                 'label' => trans("validation.attributes.status"), // Table column heading
                 'type' => "radio",
@@ -253,5 +308,34 @@ class EventCrudController extends CrudController
     public function update( UpdateRequest $request )
     {
         return parent::updateCrud($request);
+    }
+
+    public function afterStore($request, $entry)
+    {
+        $this->saveImage($entry, $request);
+    }
+
+    public function afterUpdate($request, $entry)
+    {
+        $this->saveImage($entry, $request, true);
+    }
+
+    public function saveImage($entry, $request, $update = false)
+    {
+        if ($update && !empty($request['clear_banner'])) {
+            $clearImage = !is_array($request['clear_banner']) ? [$request['clear_banner']] : $request['clear_banner'];
+            $entry->media()->whereIn('id', $clearImage)->get()->each->delete();
+        }
+
+        if (!empty($request['banner_existing'])) {
+            $existingImage = !is_array($request['banner_existing']) ? [$request['banner_existing']] : $request['banner_existing'];
+            Media::setNewOrder($existingImage);
+        }
+
+        if ($request->hasFile('banner')) {
+            $entry->addMultipleMediaFromRequest(['banner'])
+                ->each->withResponsiveImages()
+                ->each->toMediaCollection(Event::IMAGE_COLLECTION_NAME);
+        }
     }
 }

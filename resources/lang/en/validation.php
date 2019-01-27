@@ -162,6 +162,7 @@ return [
 
         'description' => 'Description',
         'slug' => 'Slug',
+        'banner' => 'Banner',
         'remarks' => 'Remarks',
         'approximate' => 'Approximate',
         'amount' => 'Amount',
