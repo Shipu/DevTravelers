@@ -10,8 +10,8 @@ class EventCrudRequest extends FormRequest
 
     public function __construct()
     {
-        if (!empty(\Route::current()->parameters['user'])) {
-            $this->eventId = intval(\Route::current()->parameters['user']);
+        if (!empty(\Route::current()->parameters['event'])) {
+            $this->eventId = intval(\Route::current()->parameters['event']);
         }
 
         parent::__construct();
@@ -24,21 +24,6 @@ class EventCrudRequest extends FormRequest
 
     public function rules()
     {
-        $rules                             = [];
-        $rules[ 'name' ]                   = 'required|max:191';
-        $rules[ 'password' ]               = 'required|confirmed';
-        $rules[ 'username' ]               = 'required|unique:users,username';
-        $rules[ 'email' ]                  = 'required|unique:users,email';
-
-        if ($this->eventId) {
-            unset($rules['password']);
-            foreach (['email','username'] as $fieldName) {
-                if (isset($rules[$fieldName])) {
-                    $rules[$fieldName] = $rules[$fieldName] . ',' . $this->id;
-                }
-            }
-        }
-
-        return $rules;
+        return [];
     }
 }
