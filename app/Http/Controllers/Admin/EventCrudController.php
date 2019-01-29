@@ -2,10 +2,8 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Requests\ClassRequest as StoreRequest;
-use App\Http\Requests\ClassRequest as UpdateRequest;
-use App\Models\AcademicClass;
-use App\Models\BackpackUser;
+use App\Http\Requests\EventCrudRequest as StoreRequest;
+use App\Http\Requests\EventCrudRequest as UpdateRequest;
 use App\Models\Event;
 use Spatie\MediaLibrary\Models\Media;
 

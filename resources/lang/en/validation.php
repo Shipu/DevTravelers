@@ -186,9 +186,7 @@ return [
         'no' => 'No.',
         'permanent' => 'Permanent',
         'present' => 'Present',
-        'roll' => 'Roll',
-        'registration' => 'Registration',
-        'board' => 'Board',
+        'attributes' => 'Attrbutes',
 
         'id' => 'ID',
         'code' => 'Code',
