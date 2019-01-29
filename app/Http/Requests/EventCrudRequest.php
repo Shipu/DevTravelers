@@ -6,12 +6,12 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class EventCrudRequest extends FormRequest
 {
-    protected $userId = null;
+    protected $eventId = null;
 
     public function __construct()
     {
         if (!empty(\Route::current()->parameters['user'])) {
-            $this->userId = intval(\Route::current()->parameters['user']);
+            $this->eventId = intval(\Route::current()->parameters['user']);
         }
 
         parent::__construct();
@@ -30,7 +30,7 @@ class EventCrudRequest extends FormRequest
         $rules[ 'username' ]               = 'required|unique:users,username';
         $rules[ 'email' ]                  = 'required|unique:users,email';
 
-        if ($this->userId) {
+        if ($this->eventId) {
             unset($rules['password']);
             foreach (['email','username'] as $fieldName) {
                 if (isset($rules[$fieldName])) {
