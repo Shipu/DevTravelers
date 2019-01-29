@@ -22,10 +22,12 @@ class CreatePaymentsTable extends Migration
             $table->string('transaction_id')->nullable();
             $table->decimal('amount');
             $table->foreignIntegerNullable('event_id', 'events');
+            $table->string('payment_mobile_number')->nullable();
             $table->nullableMorphs('sender');
             $table->nullableMorphs('receiver');
             $table->text('remarks')->nullable();
             $table->dateTime('paid_at');
+            $table->text('api_result');
             $table->auditColumn();
             $table->timestamps();
             $table->softDeletes();
