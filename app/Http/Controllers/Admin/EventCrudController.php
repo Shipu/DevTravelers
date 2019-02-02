@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Requests\EventCrudRequest as StoreRequest;
 use App\Http\Requests\EventCrudRequest as UpdateRequest;
+use App\Models\Asset;
 use App\Models\Event;
 use Spatie\MediaLibrary\Models\Media;
 
@@ -209,6 +210,15 @@ class EventCrudController extends CrudController
                         'number' => '01707722669'
                     ]
                 ]
+            ],
+            [
+                'name' => 'assets',
+                'label' => trans('validation.attributes.assets'),
+                'type' => 'select2_multiple',
+                'entity' => 'assets',
+                'model' => Asset::class,
+                'attribute' => 'name',
+                'pivot' => true
             ],
             [
                 'name' => 'remarks',

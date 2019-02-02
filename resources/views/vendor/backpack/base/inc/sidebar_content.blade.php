@@ -8,7 +8,8 @@
         <li><a href="{{ backpack_url('role') }}"><i class="fa fa-group"></i> <span>Roles</span></a></li>
         <li><a href="{{ backpack_url('permission') }}"><i class="fa fa-key"></i> <span>Permissions</span></a></li>
         <li><a href='{{ backpack_url('attribute') }}'><i class='fa fa-angellist'></i> <span>{{ trans_choice('entity.attribute', 0) }}</span></a></li>
-        <li><a href='{{ backpack_url('attribute-set') }}'><i class='fa fa-angle-double-down'></i> <span>{{ trans_choice('entity.attribute_set', 0) }} </span></a></li>
+        <li><a href='{{ backpack_url('attribute-set') }}'><i class='fa fa-angle-double-down'></i> <span>{{ trans_choice('entity.attribute-set', 0) }} </span></a></li>
+        <li><a href='{{ backpack_url('asset') }}'><i class='fa fa-angle-double-down'></i> <span>{{ trans_choice('entity.asset', 0) }} </span></a></li>
         <li><a href='{{ backpack_url('setting') }}'><i class='fa fa-hdd-o'></i> <span>{{ trans_choice('entity.setting', 0) }}</span></a></li>
         <li><a href='{{ backpack_url('backup') }}'><i class='fa fa-hdd-o'></i> <span>Backups</span></a></li>
     </ul>

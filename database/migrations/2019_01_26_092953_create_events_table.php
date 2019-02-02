@@ -33,7 +33,7 @@ class CreateEventsTable extends Migration
             $table->text('payment_options');
             $table->tinyInteger('status')->default(VisibilityStatus::ACTIVE);
             $table->tinyInteger('allow_guest')->default(VisibilityStatus::DEACTIVATE);
-            $table->string('remarks');
+            $table->string('remarks')->nullable();
             $table->auditColumn();
             $table->timestamps();
         });

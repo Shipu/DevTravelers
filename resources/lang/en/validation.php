@@ -160,10 +160,13 @@ return [
         'address' => 'Address',
         'photo' => 'Photo',
 
+        'price' => 'Price',
+
         'description' => 'Description',
         'slug' => 'Slug',
         'banner' => 'Banner',
         'remarks' => 'Remarks',
+        'assets' => 'Assets',
         'approximate' => 'Approximate',
         'amount' => 'Amount',
         'payment_options' => 'Payment Options',

@@ -51,6 +51,11 @@ class Event extends BaseModel implements HasMedia
         ];
     }
 
+    public function assets()
+    {
+        return $this->belongsToMany(Asset::class, 'event_assets', 'event_id', 'asset_id');
+    }
+
     public function getLatAttribute()
     {
         return $this->location->lat;

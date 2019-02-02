@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Requests\AttributeSetRequest as StoreRequest;
-use App\Http\Requests\AttributeSetRequest as UpdateRequest;
+use App\Http\Requests\AssetRequest as StoreRequest;
+use App\Http\Requests\AssetRequest as UpdateRequest;
 use App\Models\Attribute;
 use Illuminate\Http\Request;
 
-class AttributeSetCrudController extends CrudController
+class AssetCrudController extends CrudController
 {
 
     public function setupCrudFields()
@@ -19,14 +19,27 @@ class AttributeSetCrudController extends CrudController
                 'type'      => 'text',
             ],
             [
-                'label'     => trans('validation.attributes.attributes'),
-                'type'      => 'select2_multiple',
-                'name'      => 'attributes',
-                'entity'    => 'attributes',
-                'attribute' => 'name',
-                'model'     => "App\Models\Attribute",
-                'pivot'     => true,
-            ]
+                'label'     => trans('validation.attributes.price'),
+                'name'      => 'price',
+                'type'      => 'text',
+            ],
+            [
+                'name'       => 'attribute_set_id',
+                'label'      => trans_choice('entity.attribute-set', 0),
+                'type'       => 'select2',
+                'entity'     => 'attributes',
+                'attribute'  => 'name',
+                'model'      => "App\Models\AttributeSet",
+                'attributes' => [
+                    'id'    => 'attributes-set'
+                ],
+            ],
+            [
+                'name'  => 'attribute_types',
+                'label' => trans('validation.attributes.name'),
+                'type'  => 'attributes',
+                'view_namespace' => 'backpack.crud.fields'
+            ],
         ]);
     }
 
@@ -35,7 +48,7 @@ class AttributeSetCrudController extends CrudController
         $this->crud->addColumns([
             [
                 'name'  => 'name',
-                'label' => trans('attribute.name'),
+                'label' => trans('validation.attributes.name'),
             ]
         ]);
     }
@@ -59,7 +72,7 @@ class AttributeSetCrudController extends CrudController
         $attributeSetId = $request->get('attribute_set_id');
         $variantIndex = $request->get('variant_index');
 
-        return view('backpack.renders.attributes', compact('attributes', 'old', 'prefix', 'attributeSetId', 'variantIndex'));
+        return view('renders.product_attributes', compact('attributes', 'old', 'prefix', 'attributeSetId', 'variantIndex'));
     }
 
 	public function store(StoreRequest $request)

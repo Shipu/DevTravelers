@@ -18,6 +18,7 @@ class CreateAssetsTable extends Migration
             $table->increments('id');
             $table->string('name', 45)->nullable();
             $table->decimal('price')->default(0);
+            $table->foreignInteger('attribute_set_id', 'attribute_sets');
             $table->tinyInteger('status')->default(VisibilityStatus::ACTIVE);
         });
     }
