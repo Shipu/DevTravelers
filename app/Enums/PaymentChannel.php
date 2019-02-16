@@ -2,7 +2,7 @@
 
 namespace App\Enums;
 
-interface PaymentOptions
+interface PaymentChannel
 {
     const DIRECT_TO_HOST = 1;
     const BKASH = 2;

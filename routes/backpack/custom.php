@@ -11,4 +11,6 @@ Route::group([
     CRUD::resource('asset', 'AssetCrudController');
     Route::post('attribute-sets/list-attributes', ['as' => 'getAttrBySetId', 'uses' => 'AttributeSetCrudController@ajaxGetAttributesBySetId']);
     CRUD::resource('event', 'EventCrudController');
+    CRUD::resource('payment', 'PaymentCrudController');
+//    CRUD::resource('participant', 'ParticipantCrudController');
 }); // this should be the absolute last line of this file

@@ -19,10 +19,10 @@ return [
     'logo_mini' => '<b>D</b>T',
 
     // Developer or company name. Shown in footer.
-    'developer_name' => 'GeekBuzz',
+    'developer_name' => 'DevTravelers Admin',
 
     // Developer website. Link in footer.
-    'developer_link' => 'http://geekbuzz.xyz',
+    'developer_link' => 'http://devtravelers.org',
 
     // Show powered by Laravel Backpack in the footer?
     'show_powered_by' => false,

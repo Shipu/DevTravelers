@@ -162,6 +162,13 @@ return [
 
         'price' => 'Price',
 
+        'event' => 'Event',
+        'paid_at' => 'Paid At',
+        'channel' => 'Channel',
+        'transaction_ref' => 'Transaction Ref',
+        'sender' => 'Sender',
+        'purpose' => 'Purpose',
+
         'description' => 'Description',
         'slug' => 'Slug',
         'banner' => 'Banner',

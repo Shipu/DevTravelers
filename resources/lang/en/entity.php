@@ -6,5 +6,6 @@ return [
     'setting' => 'Setting|Settings',
     'attribute' => 'Attribute|Attributes',
     'attribute-set' => 'Attribute Set|Attribute Sets',
-    'asset' => 'Asset|Assets'
+    'asset' => 'Asset|Assets',
+    'payment' => 'Payment|Payments'
 ];
