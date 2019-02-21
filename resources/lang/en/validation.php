@@ -169,6 +169,14 @@ return [
         'sender' => 'Sender',
         'purpose' => 'Purpose',
 
+        'general_tab' => 'General',
+        'attributes_tab' => 'Attributes',
+        'variants_tab' => 'Variants',
+
+        'sku' => 'Sku',
+        'stock' => 'Stock',
+        'image' => 'Image',
+
         'description' => 'Description',
         'slug' => 'Slug',
         'banner' => 'Banner',

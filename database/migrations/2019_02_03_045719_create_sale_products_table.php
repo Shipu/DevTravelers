@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateAssetAttributesTable extends Migration
+class CreateSaleProductsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,12 @@ class CreateAssetAttributesTable extends Migration
      */
     public function up()
     {
-        Schema::create('asset_attributes', function (Blueprint $table) {
+        Schema::create('sale_products', function (Blueprint $table) {
             $table->increments('id');
-            $table->foreignInteger('attribute_id', 'attributes');
-            $table->foreignInteger('asset_id', 'assets');
-            $table->string('value', 255)->nullable();
+            $table->foreignIntegerNullable('user_id', 'users');
+            $table->foreignIntegerNullable('event_id', 'events');
+            $table->foreignInteger('product_id', 'products');
+            $table->timestamps();
         });
     }
 
@@ -28,6 +29,6 @@ class CreateAssetAttributesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('asset_attributes');
+        Schema::dropIfExists('sale_products');
     }
 }

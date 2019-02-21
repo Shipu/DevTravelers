@@ -29,11 +29,12 @@
 @php
  $namePrefix = isset($prefix) ? $prefix.'_' : '';
  $attributeSetId = isset($attributeSetId) ? '['.$attributeSetId.']' : '';
+ $vi = $variantIndex ?? 0;
  $variantIndex = isset($variantIndex) ? '['.$variantIndex.']' : '';
 @endphp
 
 @foreach($attributes as $attribute)
-    {{--@php dd($attribute) @endphp--}}
+    {{--@php dump($attribute, $variantIndex, $old[$attribute->id][$vi] ?? '') @endphp--}}
     @if($attribute->type == 'text')
         <div class="form-group col-md-12">
           <label>{{ $attribute->name }}</label>
@@ -62,10 +63,24 @@
         <div class="form-group col-md-12">
           <label>{{ $attribute->name }}</label>
           <input type="hidden" name="{{ $namePrefix }}attributes{{ $variantIndex }}{{ $attributeSetId }}[{{ $attribute->id }}]" value="">
+
           <select name="{{ $namePrefix }}attributes{{ $variantIndex }}{{ $attributeSetId }}[{{ $attribute->id }}][]" class="form-control select2_field" @if($attribute->type == 'multiple_select') multiple @endif>
-            @if(count($old) > 0 && isset($old[$attribute->id]) && $old[$attribute->id] != '')
+              @if(count($old) > 0 && isset($old[$attribute->id]) && $old[$attribute->id] != '')
                 @foreach($attribute->values as $option)
-                    <option value="{{ $option->value }}" @if((is_array($old[$attribute->id]) && in_array($option->value, $old[$attribute->id])) || (is_string($old[$attribute->id]) && $old[$attribute->id] == $option->value)) selected @endif>{{ $option->value }}</option>
+                    {{--@php--}}
+                        {{--if(isset($old[$attribute->id][$vi])) {--}}
+                            {{--dump($old[$attribute->id][$vi], $option->value, $old[$attribute->id][$vi] == $option->value);--}}
+                        {{--}--}}
+                    {{--@endphp--}}
+                    <option value="{{ $option->value }}"
+                            @if(isset($old[$attribute->id])
+                            &&
+                            (
+                                (isset($old[$attribute->id][$vi]) && $old[$attribute->id][$vi] == $option->value)
+                                || (is_string($old[$attribute->id]) && $old[$attribute->id] == $option->value)
+                            ))
+                                selected
+                            @endif>{{ $option->value }}</option>
                 @endforeach
             @else
                 @foreach($attribute->values as $option)

@@ -8,9 +8,10 @@ Route::group([
     CRUD::resource('setting', 'SettingCrudController');
     CRUD::resource('attribute', 'AttributeCrudController');
     CRUD::resource('attribute-set', 'AttributeSetCrudController');
-    CRUD::resource('asset', 'AssetCrudController');
-    Route::post('attribute-sets/list-attributes', ['as' => 'getAttrBySetId', 'uses' => 'AttributeSetCrudController@ajaxGetAttributesBySetId']);
+    CRUD::resource('product', 'ProductCrudController');
     CRUD::resource('event', 'EventCrudController');
     CRUD::resource('payment', 'PaymentCrudController');
-//    CRUD::resource('participant', 'ParticipantCrudController');
+    CRUD::resource('participant', 'ParticipantCrudController');
+
+    Route::post('attribute-sets/list-attributes', ['as' => 'getAttrBySetId', 'uses' => 'AttributeSetCrudController@ajaxGetAttributesBySetId']);
 }); // this should be the absolute last line of this file

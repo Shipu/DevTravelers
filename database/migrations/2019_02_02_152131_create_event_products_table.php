@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateEventAssetsTable extends Migration
+class CreateEventProductsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,10 @@ class CreateEventAssetsTable extends Migration
      */
     public function up()
     {
-        Schema::create('event_assets', function (Blueprint $table) {
+        Schema::create('event_products', function (Blueprint $table) {
             $table->increments('id');
             $table->foreignInteger('event_id', 'events');
-            $table->foreignInteger('asset_id', 'assets');
+            $table->foreignInteger('product_id', 'products');
         });
     }
 
@@ -27,6 +27,6 @@ class CreateEventAssetsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('event_assets');
+        Schema::dropIfExists('event_products');
     }
 }

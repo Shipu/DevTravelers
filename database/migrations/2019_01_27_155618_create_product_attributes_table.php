@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateParticipantsTable extends Migration
+class CreateProductAttributesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,11 @@ class CreateParticipantsTable extends Migration
      */
     public function up()
     {
-        Schema::create('participants', function (Blueprint $table) {
+        Schema::create('product_attributes', function (Blueprint $table) {
             $table->increments('id');
-            $table->foreignInteger('event_id', 'events');
-            $table->foreignInteger('user_id', 'users');
-            $table->timestamps();
+            $table->foreignInteger('attribute_id', 'attributes');
+            $table->foreignInteger('product_id', 'products');
+            $table->string('value', 255)->nullable();
         });
     }
 
@@ -28,6 +28,6 @@ class CreateParticipantsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('participants');
+        Schema::dropIfExists('product_attributes');
     }
 }
